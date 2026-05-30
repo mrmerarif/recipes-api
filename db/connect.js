@@ -10,15 +10,12 @@ const connectDB = async () => {
       throw new Error('Missing MONGODB_URI environment variable');
     }
 
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(uri);
 
     console.log('✓ Connected to MongoDB using Mongoose');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
-    process.exit(1); // Stop the app if DB fails
+    process.exit(1);
   }
 };
 
