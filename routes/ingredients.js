@@ -1,4 +1,4 @@
-// routes/ingredients.js
+
 const express = require('express');
 const router = express.Router();
 
@@ -69,6 +69,12 @@ router.get('/:id', getIngredientById);
  *               price: { type: number }
  *               brand: { type: string }
  *               allergens: { type: string }
+ *             required:
+ *               - name
+ *               - type
+ *               - calories
+ *               - unit
+ *               - price
  *     responses:
  *       201:
  *         description: Ingredient created
@@ -103,6 +109,12 @@ router.post('/', createIngredient);
  *               price: { type: number }
  *               brand: { type: string }
  *               allergens: { type: string }
+ *             required:
+ *               - name
+ *               - type
+ *               - calories
+ *               - unit
+ *               - price
  *     responses:
  *       200:
  *         description: Ingredient updated

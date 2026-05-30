@@ -1,4 +1,4 @@
-// routes/recipes.js
+
 const express = require('express');
 const router = express.Router();
 
@@ -64,13 +64,24 @@ router.get('/:id', getRecipeById);
  *             properties:
  *               title: { type: string }
  *               description: { type: string }
- *               ingredients: { type: array, items: { type: string } }
+ *               ingredients:
+ *                 type: array
+ *                 items: { type: string }
  *               instructions: { type: string }
  *               prepTime: { type: number }
  *               cookTime: { type: number }
  *               servings: { type: number }
  *               category: { type: string }
  *               imageUrl: { type: string }
+ *             required:
+ *               - title
+ *               - description
+ *               - ingredients
+ *               - instructions
+ *               - prepTime
+ *               - cookTime
+ *               - servings
+ *               - category
  *     responses:
  *       201:
  *         description: Recipe created
@@ -100,13 +111,24 @@ router.post('/', createRecipe);
  *             properties:
  *               title: { type: string }
  *               description: { type: string }
- *               ingredients: { type: array, items: { type: string } }
+ *               ingredients:
+ *                 type: array
+ *                 items: { type: string }
  *               instructions: { type: string }
  *               prepTime: { type: number }
  *               cookTime: { type: number }
  *               servings: { type: number }
  *               category: { type: string }
  *               imageUrl: { type: string }
+ *             required:
+ *               - title
+ *               - description
+ *               - ingredients
+ *               - instructions
+ *               - prepTime
+ *               - cookTime
+ *               - servings
+ *               - category
  *     responses:
  *       200:
  *         description: Recipe updated

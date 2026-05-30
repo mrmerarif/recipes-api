@@ -39,7 +39,7 @@ const createRecipe = async (req, res) => {
       imageUrl
     } = req.body;
 
-    // Basic validation before hitting Mongoose
+    // Validate required fields
     if (
       !title ||
       !description ||
@@ -64,13 +64,12 @@ const createRecipe = async (req, res) => {
       cookTime,
       servings,
       category,
-      imageUrl
+      imageUrl: imageUrl || "" // default if missing
     });
 
     const saved = await recipe.save();
     res.status(201).json(saved);
   } catch (err) {
-    // Mongoose validation errors also come here
     res.status(400).json({ message: err.message });
   }
 };
@@ -90,6 +89,7 @@ const updateRecipe = async (req, res) => {
       imageUrl
     } = req.body;
 
+    // Validate required fields
     if (
       !title ||
       !description ||
@@ -116,7 +116,7 @@ const updateRecipe = async (req, res) => {
         cookTime,
         servings,
         category,
-        imageUrl
+        imageUrl: imageUrl || ""
       },
       { new: true, runValidators: true }
     );
@@ -138,7 +138,7 @@ const deleteRecipe = async (req, res) => {
     if (!deleted) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
-    res.status(204).send();
+    res.status(204).send(); // No content
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

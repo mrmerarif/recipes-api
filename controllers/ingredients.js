@@ -29,6 +29,7 @@ const createIngredient = async (req, res) => {
   try {
     const { name, type, calories, unit, price, brand, allergens } = req.body;
 
+    // Validate required fields
     if (!name || !type || calories == null || !unit || price == null) {
       return res.status(400).json({ message: 'Missing required ingredient fields' });
     }
@@ -39,8 +40,8 @@ const createIngredient = async (req, res) => {
       calories,
       unit,
       price,
-      brand,
-      allergens
+      brand: brand || "",
+      allergens: allergens || ""
     });
 
     const saved = await ingredient.save();
@@ -55,13 +56,22 @@ const updateIngredient = async (req, res) => {
   try {
     const { name, type, calories, unit, price, brand, allergens } = req.body;
 
+    // Validate required fields
     if (!name || !type || calories == null || !unit || price == null) {
       return res.status(400).json({ message: 'Missing required ingredient fields' });
     }
 
     const updated = await Ingredient.findByIdAndUpdate(
       req.params.id,
-      { name, type, calories, unit, price, brand, allergens },
+      {
+        name,
+        type,
+        calories,
+        unit,
+        price,
+        brand: brand || "",
+        allergens: allergens || ""
+      },
       { new: true, runValidators: true }
     );
 
@@ -82,7 +92,7 @@ const deleteIngredient = async (req, res) => {
     if (!deleted) {
       return res.status(404).json({ message: 'Ingredient not found' });
     }
-    res.status(204).send();
+    res.status(204).send(); // No content
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,25 +1,84 @@
 
-
 const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Recipes API (Application Programming Interface)',
+      title: 'Recipes + Ingredients API',
       version: '1.0.0',
-      description:
-        'A REST (Representational State Transfer) API that performs CRUD (Create Read Update Delete) operations for Recipes and Ingredients using MongoDB (Mongo Database) and Mongoose (MongoDB Object Modeling for Node.js).'
+      description: 'API documentation for Recipes and Ingredients'
     },
     servers: [
       {
         url: 'http://localhost:3000',
         description: 'Local development server'
+      },
+      {
+        url: 'https://recipes-api-infv.onrender.com',
+        description: 'Production server (Render)'
       }
-    ]
+    ],
+    components: {
+      schemas: {
+        Recipe: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            title: { type: 'string' },
+            description: { type: 'string' },
+            ingredients: {
+              type: 'array',
+              items: { type: 'string' }
+            },
+            instructions: { type: 'string' },
+            prepTime: { type: 'number' },
+            cookTime: { type: 'number' },
+            servings: { type: 'number' },
+            category: { type: 'string' },
+            imageUrl: { type: 'string' },
+            createdAt: { type: 'string' },
+            updatedAt: { type: 'string' }
+          },
+          required: [
+            'title',
+            'description',
+            'ingredients',
+            'instructions',
+            'prepTime',
+            'cookTime',
+            'servings',
+            'category'
+          ]
+        },
+
+        Ingredient: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            name: { type: 'string' },
+            type: { type: 'string' },
+            calories: { type: 'number' },
+            unit: { type: 'string' },
+            price: { type: 'number' },
+            brand: { type: 'string' },
+            allergens: { type: 'string' },
+            createdAt: { type: 'string' },
+            updatedAt: { type: 'string' }
+          },
+          required: ['name', 'type', 'calories', 'unit', 'price']
+        }
+      }
+    }
   },
-  apis: ['./routes/*.js'] // tells Swagger where to find route comments
+
+  apis: ['./routes/*.js']
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-module.exports = swaggerSpec;
+
+module.exports = {
+  swaggerUi,
+  swaggerSpec
+};
