@@ -11,9 +11,7 @@ const ingredientSchema = new mongoose.Schema(
     brand: { type: String },
     allergens: { type: String } // e.g., "nuts, dairy"
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model('Ingredient', ingredientSchema);
