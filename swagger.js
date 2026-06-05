@@ -12,11 +12,11 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'https://recipes-api-infv.onrender.com',
         description: 'Local development server'
       },
       {
-        url: 'https://recipes-api-infv.onrender.com',
+        url: 'http://localhost:3000',
         description: 'Production server (Render)'
       }
     ],
