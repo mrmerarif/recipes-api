@@ -19,8 +19,9 @@ app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredients', require('./routes/ingredients'));
 
 // Swagger placeholder 
-const swaggerSpec = require('./swagger');
+const { swaggerSpec } = require('./swagger');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // Global error handler
 app.use((err, req, res, next) => {
