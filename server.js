@@ -13,15 +13,17 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// 🔐 AUTH ROUTES (must come before protected routes)
+app.use('/auth', require('./routes/auth'));
+
+// Main API routes
 app.use('/', require('./routes/index'));
 app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredients', require('./routes/ingredients'));
 
-// Swagger placeholder 
+// Swagger documentation
 const { swaggerSpec } = require('./swagger');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 
 // Global error handler
 app.use((err, req, res, next) => {

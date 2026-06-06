@@ -1,4 +1,3 @@
-
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -20,7 +19,17 @@ const options = {
         description: 'Local development server'
       }
     ],
+
+    // 🔐 SECURITY SCHEMES ADDED HERE
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
+
       schemas: {
         Recipe: {
           type: 'object',

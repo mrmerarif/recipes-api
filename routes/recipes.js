@@ -1,6 +1,6 @@
-
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth'); //  Import JWT middleware
 
 const {
   getAllRecipes,
@@ -54,6 +54,8 @@ router.get('/:id', getRecipeById);
  * /recipes:
  *   post:
  *     summary: Create a new recipe
+ *     security:
+ *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
  *     requestBody:
  *       required: true
@@ -88,13 +90,15 @@ router.get('/:id', getRecipeById);
  *       400:
  *         description: Missing required fields
  */
-router.post('/', createRecipe);
+router.post('/', auth, createRecipe); // Protected
 
 /**
  * @swagger
  * /recipes/{id}:
  *   put:
  *     summary: Update a recipe
+ *     security:
+ *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
  *     parameters:
  *       - in: path
@@ -137,13 +141,15 @@ router.post('/', createRecipe);
  *       404:
  *         description: Recipe not found
  */
-router.put('/:id', updateRecipe);
+router.put('/:id', auth, updateRecipe); // Protected
 
 /**
  * @swagger
  * /recipes/{id}:
  *   delete:
  *     summary: Delete a recipe
+ *     security:
+ *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
  *     parameters:
  *       - in: path
@@ -157,6 +163,6 @@ router.put('/:id', updateRecipe);
  *       404:
  *         description: Recipe not found
  */
-router.delete('/:id', deleteRecipe);
+router.delete('/:id', auth, deleteRecipe); // Protected
 
 module.exports = router;
