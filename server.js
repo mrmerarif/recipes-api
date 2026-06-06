@@ -41,3 +41,11 @@ connectDB()
   .catch((err) => {
     console.error('Failed to start server:', err);
   });
+
+  app.get('/debug-env', (req, res) => {
+    res.json({
+      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+      GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI
+    });
+  });
+  
