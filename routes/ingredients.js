@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth'); // Very Import JWT middleware
+const auth = require('../middleware/auth');
 
 const {
   getAllIngredients,
@@ -54,45 +54,31 @@ router.get('/:id', getIngredientById);
  * /ingredients:
  *   post:
  *     summary: Create a new ingredient
- *     security:
- *       - bearerAuth: []   # Protected route
  *     tags: [Ingredients]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name: { type: string }
- *               type: { type: string }
- *               calories: { type: number }
- *               unit: { type: string }
- *               price: { type: number }
- *               brand: { type: string }
- *               allergens: { type: string }
- *             required:
- *               - name
- *               - type
- *               - calories
- *               - unit
- *               - price
+ *             $ref: '#/components/schemas/Ingredient'
  *     responses:
  *       201:
  *         description: Ingredient created
  *       400:
- *         description: Missing required fields
+ *         description: Missing or invalid fields
  */
-router.post('/', auth, createIngredient); // 🔐 Protected
+router.post('/', auth, createIngredient);
 
 /**
  * @swagger
  * /ingredients/{id}:
  *   put:
  *     summary: Update an ingredient
- *     security:
- *       - bearerAuth: []   # Protected route
  *     tags: [Ingredients]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -104,21 +90,7 @@ router.post('/', auth, createIngredient); // 🔐 Protected
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name: { type: string }
- *               type: { type: string }
- *               calories: { type: number }
- *               unit: { type: string }
- *               price: { type: number }
- *               brand: { type: string }
- *               allergens: { type: string }
- *             required:
- *               - name
- *               - type
- *               - calories
- *               - unit
- *               - price
+ *             $ref: '#/components/schemas/Ingredient'
  *     responses:
  *       200:
  *         description: Ingredient updated
@@ -127,16 +99,16 @@ router.post('/', auth, createIngredient); // 🔐 Protected
  *       404:
  *         description: Ingredient not found
  */
-router.put('/:id', auth, updateIngredient); // Protected
+router.put('/:id', auth, updateIngredient);
 
 /**
  * @swagger
  * /ingredients/{id}:
  *   delete:
  *     summary: Delete an ingredient
- *     security:
- *       - bearerAuth: []   # 🔐 Protected route
  *     tags: [Ingredients]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -149,6 +121,6 @@ router.put('/:id', auth, updateIngredient); // Protected
  *       404:
  *         description: Ingredient not found
  */
-router.delete('/:id', auth, deleteIngredient); // Protected
+router.delete('/:id', auth, deleteIngredient);
 
 module.exports = router;

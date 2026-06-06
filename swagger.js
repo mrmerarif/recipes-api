@@ -7,7 +7,7 @@ const options = {
     info: {
       title: 'Recipes + Ingredients API',
       version: '1.0.0',
-      description: 'API documentation for Recipes and Ingredients'
+      description: 'API documentation for Recipes, Ingredients, and Authentication'
     },
     servers: [
       {
@@ -20,7 +20,6 @@ const options = {
       }
     ],
 
-    // 🔐 SECURITY SCHEMES ADDED HERE
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -82,6 +81,7 @@ const options = {
     }
   },
 
+  //  IMPORTANT: Swagger will scan all route files for JSDoc comments
   apis: ['./routes/*.js']
 };
 

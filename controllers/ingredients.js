@@ -7,7 +7,10 @@ const getAllIngredients = async (req, res) => {
     const ingredients = await Ingredient.find();
     res.status(200).json(ingredients);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message: 'Server error retrieving ingredients',
+      error: err.message
+    });
   }
 };
 
@@ -15,12 +18,17 @@ const getAllIngredients = async (req, res) => {
 const getIngredientById = async (req, res) => {
   try {
     const ingredient = await Ingredient.findById(req.params.id);
+
     if (!ingredient) {
       return res.status(404).json({ message: 'Ingredient not found' });
     }
+
     res.status(200).json(ingredient);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message: 'Error retrieving ingredient',
+      error: err.message
+    });
   }
 };
 
@@ -29,9 +37,11 @@ const createIngredient = async (req, res) => {
   try {
     const { name, type, calories, unit, price, brand, allergens } = req.body;
 
-    // Validate required fields
+    // Validation
     if (!name || !type || calories == null || !unit || price == null) {
-      return res.status(400).json({ message: 'Missing required ingredient fields' });
+      return res.status(400).json({
+        message: 'Missing required ingredient fields'
+      });
     }
 
     const ingredient = new Ingredient({
@@ -47,7 +57,10 @@ const createIngredient = async (req, res) => {
     const saved = await ingredient.save();
     res.status(201).json(saved);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({
+      message: 'Error creating ingredient',
+      error: err.message
+    });
   }
 };
 
@@ -56,9 +69,11 @@ const updateIngredient = async (req, res) => {
   try {
     const { name, type, calories, unit, price, brand, allergens } = req.body;
 
-    // Validate required fields
+    // Validation
     if (!name || !type || calories == null || !unit || price == null) {
-      return res.status(400).json({ message: 'Missing required ingredient fields' });
+      return res.status(400).json({
+        message: 'Missing required ingredient fields'
+      });
     }
 
     const updated = await Ingredient.findByIdAndUpdate(
@@ -81,7 +96,10 @@ const updateIngredient = async (req, res) => {
 
     res.status(200).json(updated);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({
+      message: 'Error updating ingredient',
+      error: err.message
+    });
   }
 };
 
@@ -89,12 +107,17 @@ const updateIngredient = async (req, res) => {
 const deleteIngredient = async (req, res) => {
   try {
     const deleted = await Ingredient.findByIdAndDelete(req.params.id);
+
     if (!deleted) {
       return res.status(404).json({ message: 'Ingredient not found' });
     }
-    res.status(204).send(); // No content
+
+    res.status(204).send();
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({
+      message: 'Error deleting ingredient',
+      error: err.message
+    });
   }
 };
 

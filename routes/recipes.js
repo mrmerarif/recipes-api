@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth'); //  Import JWT middleware
+const auth = require('../middleware/auth');
 
 const {
   getAllRecipes,
@@ -54,52 +54,31 @@ router.get('/:id', getRecipeById);
  * /recipes:
  *   post:
  *     summary: Create a new recipe
- *     security:
- *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title: { type: string }
- *               description: { type: string }
- *               ingredients:
- *                 type: array
- *                 items: { type: string }
- *               instructions: { type: string }
- *               prepTime: { type: number }
- *               cookTime: { type: number }
- *               servings: { type: number }
- *               category: { type: string }
- *               imageUrl: { type: string }
- *             required:
- *               - title
- *               - description
- *               - ingredients
- *               - instructions
- *               - prepTime
- *               - cookTime
- *               - servings
- *               - category
+ *             $ref: '#/components/schemas/Recipe'
  *     responses:
  *       201:
  *         description: Recipe created
  *       400:
- *         description: Missing required fields
+ *         description: Missing or invalid fields
  */
-router.post('/', auth, createRecipe); // Protected
+router.post('/', auth, createRecipe);
 
 /**
  * @swagger
  * /recipes/{id}:
  *   put:
  *     summary: Update a recipe
- *     security:
- *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -111,28 +90,7 @@ router.post('/', auth, createRecipe); // Protected
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title: { type: string }
- *               description: { type: string }
- *               ingredients:
- *                 type: array
- *                 items: { type: string }
- *               instructions: { type: string }
- *               prepTime: { type: number }
- *               cookTime: { type: number }
- *               servings: { type: number }
- *               category: { type: string }
- *               imageUrl: { type: string }
- *             required:
- *               - title
- *               - description
- *               - ingredients
- *               - instructions
- *               - prepTime
- *               - cookTime
- *               - servings
- *               - category
+ *             $ref: '#/components/schemas/Recipe'
  *     responses:
  *       200:
  *         description: Recipe updated
@@ -141,16 +99,16 @@ router.post('/', auth, createRecipe); // Protected
  *       404:
  *         description: Recipe not found
  */
-router.put('/:id', auth, updateRecipe); // Protected
+router.put('/:id', auth, updateRecipe);
 
 /**
  * @swagger
  * /recipes/{id}:
  *   delete:
  *     summary: Delete a recipe
- *     security:
- *       - bearerAuth: []   # Protected route
  *     tags: [Recipes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -163,6 +121,6 @@ router.put('/:id', auth, updateRecipe); // Protected
  *       404:
  *         description: Recipe not found
  */
-router.delete('/:id', auth, deleteRecipe); // Protected
+router.delete('/:id', auth, deleteRecipe);
 
 module.exports = router;

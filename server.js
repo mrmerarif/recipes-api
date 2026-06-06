@@ -20,6 +20,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/', require('./routes/index'));
 app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredients', require('./routes/ingredients'));
+app.use('/users', require('./routes/users')); // Protected routes (profile, etc.)
 
 // Swagger documentation
 const { swaggerSpec } = require('./swagger');
@@ -41,11 +42,3 @@ connectDB()
   .catch((err) => {
     console.error('Failed to start server:', err);
   });
-
-  app.get('/debug-env', (req, res) => {
-    res.json({
-      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-      GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI
-    });
-  });
-  

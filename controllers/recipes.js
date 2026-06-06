@@ -7,7 +7,7 @@ const getAllRecipes = async (req, res) => {
     const recipes = await Recipe.find();
     res.status(200).json(recipes);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Server error retrieving recipes', error: err.message });
   }
 };
 
@@ -15,12 +15,14 @@ const getAllRecipes = async (req, res) => {
 const getRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
+
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
+
     res.status(200).json(recipe);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Error retrieving recipe', error: err.message });
   }
 };
 
@@ -39,7 +41,7 @@ const createRecipe = async (req, res) => {
       imageUrl
     } = req.body;
 
-    // Validate required fields
+    // Validation
     if (
       !title ||
       !description ||
@@ -64,13 +66,13 @@ const createRecipe = async (req, res) => {
       cookTime,
       servings,
       category,
-      imageUrl: imageUrl || "" // default if missing
+      imageUrl: imageUrl || ""
     });
 
     const saved = await recipe.save();
     res.status(201).json(saved);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: 'Error creating recipe', error: err.message });
   }
 };
 
@@ -89,7 +91,7 @@ const updateRecipe = async (req, res) => {
       imageUrl
     } = req.body;
 
-    // Validate required fields
+    // Validation
     if (
       !title ||
       !description ||
@@ -127,7 +129,7 @@ const updateRecipe = async (req, res) => {
 
     res.status(200).json(updated);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: 'Error updating recipe', error: err.message });
   }
 };
 
@@ -135,12 +137,14 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   try {
     const deleted = await Recipe.findByIdAndDelete(req.params.id);
+
     if (!deleted) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
-    res.status(204).send(); // No content
+
+    res.status(204).send();
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Error deleting recipe', error: err.message });
   }
 };
 
