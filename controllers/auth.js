@@ -64,7 +64,12 @@ exports.googleCallback = async (req, res) => {
 
   } catch (error) {
     console.error('OAuth error:', error.response?.data || error.message);
-    res.status(500).json({ message: 'Authentication failed' });
+
+    // Return detailed error so we can see EXACTLY what Google is rejecting
+    res.status(500).json({
+      message: 'Authentication failed',
+      details: error.response?.data || error.message
+    });
   }
 };
 
