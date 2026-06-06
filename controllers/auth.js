@@ -8,7 +8,7 @@ const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
 
 // STEP 1: Redirect user to Google OAuth
 exports.login = (req, res) => {
-  const redirectUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&response_type=code&scope=openid%20email%20profile`;
+  const redirectUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;
 
   res.redirect(redirectUrl);
 };
@@ -63,7 +63,7 @@ exports.googleCallback = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('OAuth error:', error);
+    console.error('OAuth error:', error.response?.data || error.message);
     res.status(500).json({ message: 'Authentication failed' });
   }
 };
