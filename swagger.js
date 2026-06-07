@@ -27,61 +27,13 @@ const options = {
           scheme: 'bearer',
           bearerFormat: 'JWT'
         }
-      },
-
-      schemas: {
-        Recipe: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string' },
-            title: { type: 'string' },
-            description: { type: 'string' },
-            ingredients: {
-              type: 'array',
-              items: { type: 'string' }
-            },
-            instructions: { type: 'string' },
-            prepTime: { type: 'number' },
-            cookTime: { type: 'number' },
-            servings: { type: 'number' },
-            category: { type: 'string' },
-            imageUrl: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' }
-          },
-          required: [
-            'title',
-            'description',
-            'ingredients',
-            'instructions',
-            'prepTime',
-            'cookTime',
-            'servings',
-            'category'
-          ]
-        },
-
-        Ingredient: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string' },
-            name: { type: 'string' },
-            type: { type: 'string' },
-            calories: { type: 'number' },
-            unit: { type: 'string' },
-            price: { type: 'number' },
-            brand: { type: 'string' },
-            allergens: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' }
-          },
-          required: ['name', 'type', 'calories', 'unit', 'price']
-        }
       }
+
+      
     }
   },
 
-  //  IMPORTANT: Swagger will scan all route files for JSDoc comments
+  // Swagger will scan all route files for JSDoc comments
   apis: ['./routes/*.js']
 };
 
