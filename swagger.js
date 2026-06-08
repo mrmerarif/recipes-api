@@ -19,7 +19,6 @@ const options = {
         description: 'Local development server'
       }
     ],
-
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -27,61 +26,9 @@ const options = {
           scheme: 'bearer',
           bearerFormat: 'JWT'
         }
-      },
-
-      // 🔹 Hidden placeholder schemas (keeps $ref valid but prevents rendering)
-      schemas: {
-        Recipe: { $ref: '#/definitions/Recipe' },
-        Ingredient: { $ref: '#/definitions/Ingredient' }
-      }
-    },
-
-    // 🔹 Definitions section (not rendered in UI)
-    definitions: {
-      Recipe: {
-        type: 'object',
-        properties: {
-          title: { type: 'string' },
-          description: { type: 'string' },
-          ingredients: {
-            type: 'array',
-            items: { type: 'string' }
-          },
-          instructions: { type: 'string' },
-          prepTime: { type: 'number' },
-          cookTime: { type: 'number' },
-          servings: { type: 'number' },
-          category: { type: 'string' },
-          imageUrl: { type: 'string' }
-        },
-        required: [
-          'title',
-          'description',
-          'ingredients',
-          'instructions',
-          'prepTime',
-          'cookTime',
-          'servings',
-          'category'
-        ]
-      },
-      Ingredient: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          type: { type: 'string' },
-          calories: { type: 'number' },
-          unit: { type: 'string' },
-          price: { type: 'number' },
-          brand: { type: 'string' },
-          allergens: { type: 'string' }
-        },
-        required: ['name', 'type', 'calories', 'unit', 'price']
       }
     }
   },
-
-  // Swagger will scan all route files for JSDoc comments
   apis: ['./routes/*.js']
 };
 
