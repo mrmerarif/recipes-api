@@ -20,16 +20,27 @@ app.use('/auth', require('./routes/auth'));
 app.use('/', require('./routes/index'));
 app.use('/recipes', require('./routes/recipes'));
 app.use('/ingredients', require('./routes/ingredients'));
-app.use('/users', require('./routes/users')); // Protected routes (profile, etc.)
+app.use('/users', require('./routes/users'));
 
 // Swagger documentation
-const { swaggerSpec } = require('./swagger');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const {
+  swaggerSpec,
+  swaggerUiOptions
+} = require('./swagger');
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, swaggerUiOptions)
+);
 
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: 'Something went wrong!' });
+
+  res.status(500).json({
+    message: 'Something went wrong!'
+  });
 });
 
 // Start server after DB connection
