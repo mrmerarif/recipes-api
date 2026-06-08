@@ -19,6 +19,7 @@ const options = {
         description: 'Local development server'
       }
     ],
+
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -26,9 +27,54 @@ const options = {
           scheme: 'bearer',
           bearerFormat: 'JWT'
         }
+      },
+
+      // ✅ Minimal hidden schemas (resolve $ref but don’t render full models)
+      schemas: {
+        Recipe: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+            description: { type: 'string' },
+            ingredients: {
+              type: 'array',
+              items: { type: 'string' }
+            },
+            instructions: { type: 'string' },
+            prepTime: { type: 'number' },
+            cookTime: { type: 'number' },
+            servings: { type: 'number' },
+            category: { type: 'string' },
+            imageUrl: { type: 'string' }
+          },
+          required: [
+            'title',
+            'description',
+            'ingredients',
+            'instructions',
+            'prepTime',
+            'cookTime',
+            'servings',
+            'category'
+          ]
+        },
+        Ingredient: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            type: { type: 'string' },
+            calories: { type: 'number' },
+            unit: { type: 'string' },
+            price: { type: 'number' },
+            brand: { type: 'string' },
+            allergens: { type: 'string' }
+          },
+          required: ['name', 'type', 'calories', 'unit', 'price']
+        }
       }
     }
   },
+
   apis: ['./routes/*.js']
 };
 
