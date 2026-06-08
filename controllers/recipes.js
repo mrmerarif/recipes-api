@@ -7,7 +7,10 @@ const getAllRecipes = async (req, res) => {
     const recipes = await Recipe.find();
     res.status(200).json(recipes);
   } catch (err) {
-    res.status(500).json({ message: 'Server error retrieving recipes', error: err.message });
+    res.status(500).json({
+      message: 'Server error retrieving recipes',
+      error: err.message
+    });
   }
 };
 
@@ -22,7 +25,10 @@ const getRecipeById = async (req, res) => {
 
     res.status(200).json(recipe);
   } catch (err) {
-    res.status(500).json({ message: 'Error retrieving recipe', error: err.message });
+    res.status(500).json({
+      message: 'Error retrieving recipe',
+      error: err.message
+    });
   }
 };
 
@@ -54,7 +60,9 @@ const createRecipe = async (req, res) => {
       servings == null ||
       !category
     ) {
-      return res.status(400).json({ message: 'Missing required recipe fields' });
+      return res.status(400).json({
+        message: 'Missing required recipe fields'
+      });
     }
 
     const recipe = new Recipe({
@@ -72,7 +80,10 @@ const createRecipe = async (req, res) => {
     const saved = await recipe.save();
     res.status(201).json(saved);
   } catch (err) {
-    res.status(400).json({ message: 'Error creating recipe', error: err.message });
+    res.status(400).json({
+      message: 'Error creating recipe',
+      error: err.message
+    });
   }
 };
 
@@ -104,7 +115,9 @@ const updateRecipe = async (req, res) => {
       servings == null ||
       !category
     ) {
-      return res.status(400).json({ message: 'Missing required recipe fields' });
+      return res.status(400).json({
+        message: 'Missing required recipe fields'
+      });
     }
 
     const updated = await Recipe.findByIdAndUpdate(
@@ -129,7 +142,10 @@ const updateRecipe = async (req, res) => {
 
     res.status(200).json(updated);
   } catch (err) {
-    res.status(400).json({ message: 'Error updating recipe', error: err.message });
+    res.status(400).json({
+      message: 'Error updating recipe',
+      error: err.message
+    });
   }
 };
 
@@ -144,7 +160,10 @@ const deleteRecipe = async (req, res) => {
 
     res.status(204).send();
   } catch (err) {
-    res.status(500).json({ message: 'Error deleting recipe', error: err.message });
+    res.status(500).json({
+      message: 'Error deleting recipe',
+      error: err.message
+    });
   }
 };
 
